@@ -7,7 +7,7 @@ local RECIPES = {
 	{ 
 		Name = "Beef Steak", 
 		Ingredients = {"Steak", "Asparagus"}, 
-		Base = "Steak" -- 굽기가 시작되는 핵심 재료
+		Base = "Steak" -- 굽기가 시작되는 핵심 재
 	},
 	{ 
 		Name = "Salmon Meuniere", 
@@ -168,4 +168,5 @@ if platePrompt then
 	end)
 	--whats yo lookin fo
 end
+
 
