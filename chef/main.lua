@@ -2,12 +2,12 @@
 local ServerStorage = game:GetService("ServerStorage")
 local TweenService = game:GetService("TweenService")
 
--- [1] 레시피 및 재료 설정
+-- [1] recipe and ingredient
 local RECIPES = {
 	{ 
 		Name = "Beef Steak", 
 		Ingredients = {"Steak", "Asparagus"}, 
-		Base = "Steak" -- 굽기가 시작되는 핵심 재
+		Base = "Steak" -- base
 	},
 	{ 
 		Name = "Salmon Meuniere", 
@@ -17,12 +17,12 @@ local RECIPES = {
 	{ 
 		Name = "Pasta Carbonara", 
 		Ingredients = {"Pasta", "Bacon"}, 
-		Base = "Bacon" -- 베이컨을 구우면 시작
+		Base = "Bacon" -- what yo lookin at
 	},
 	{ 
 		Name = "Tomato Soup", 
 		Ingredients = {"Tomato", "Bread"}, 
-		Base = "Tomato" -- 토마토를 끓이면 시작
+		Base = "Tomato" -- stars
 	}
 }
 
@@ -30,42 +30,42 @@ local RECIPES = {
 local FoodStorage = ServerStorage:WaitForChild("FinishedFood")
 
 -------------------------------------------------------------
--- [2] 요리 로직 (Cooking Process)
+-- [2] cooking logic (Cooking Process)
 -------------------------------------------------------------
 local function startCooking(tool)
-	if tool:GetAttribute("IsCooking") then return end -- 이미 요리 중이면 패스
+	if tool:GetAttribute("IsCooking") then return end -- skip if its aredy cookin
 	
 	tool:SetAttribute("IsCooking", true)
-	print("🔥 조리 시작! (1분 소요)")
+	print("🔥🔥🔥🔥🔥🔥🔥🔥🔥 start cookin! (1 min)")
 
-	local grillPart = tool:FindFirstChild("GrillPart") -- 색이 변할 파트
+	local grillPart = tool:FindFirstChild("GrillPart") -- stove's heat plate(?)
 	local smoke = grillPart and grillPart:FindFirstChild("Smoke")
 
 	if grillPart then
-		-- 1. 색상 변경 (30초 동안 천천히 빨갛게 달아오름)
+		-- colo change module
 		local tweenInfo = TweenInfo.new(30, Enum.EasingStyle.Linear)
-		local goal = {Color = Color3.fromRGB(255, 50, 0)} -- 붉은색
+		local goal = {Color = Color3.fromRGB(255, 50, 0)} -- colo aftu 30 sec
 		local tween = TweenService:Create(grillPart, tweenInfo, goal)
 		tween:Play()
 	end
 
-	-- 2. 30초 후 연기 발생
+	-- 2. 30sec after ->> enalbe particle effect
 	task.delay(30, function()
-		if tool and tool.Parent then -- 도구가 여전히 존재할 때만
+		if tool and tool.Parent then -- if tool stil exist
 			if smoke then smoke.Enabled = true end
-			print("💨 연기가 나기 시작합니다! (30초 경과)")
+			print("💨 alah!!💨💨 its smokin! ")
 		end
 	end)
 
-	-- 3. 60초 후 조리 완료
+	-- 3. after 60 secc 
 	task.delay(60, function()
 		if tool and tool.Parent then
 			tool:SetAttribute("Status", "Cooked")
-			print("✅ 요리 완료! 플레이팅 가능.")
+			print("✅ ice..")
 			
-			-- 시각적 피드백 (완료됨을 알리기 위해 초록빛 살짝 섞음 or 불 끄기)
-			if grillPart then grillPart.Color = Color3.fromRGB(139, 69, 19) end -- 갈색(익음)
-			if smoke then smoke.Enabled = false end -- 연기 끔
+			-- turn off fire 
+			if grillPart then grillPart.Color = Color3.fromRGB(139, 69, 19) end -- nig u dun?
+			if smoke then smoke.Enabled = false end -- disable smoke
 		end
 	end)
 end
@@ -168,5 +168,6 @@ if platePrompt then
 	end)
 	--whats yo lookin fo
 end
+
 
 
