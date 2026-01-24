@@ -61,7 +61,7 @@ local function startCooking(tool)
 	task.delay(60, function()
 		if tool and tool.Parent then
 			tool:SetAttribute("Status", "Cooked")
-			print("✅ Cooking complete! Ready for plating.")
+			print("  Cooking complete! Ready for plating.")
 			
 			-- Visual feedback (indicate cooked state by adding brown or turning off flame)
 			if grillPart then grillPart.Color = Color3.fromRGB(139, 69, 19) end -- brown (cooked)
@@ -143,7 +143,7 @@ if platePrompt then
 
 			-- 3. Dispense result
 			if foundRecipe then
-				print("🍽️ Finished dish: " .. foundRecipe)
+				print("Finished dish: " .. foundRecipe)
 				
 				-- Destroy the existing grill (cooking finished)
 				tool:Destroy()
