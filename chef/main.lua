@@ -71,29 +71,29 @@ local function startCooking(tool)
 end
 
 -------------------------------------------------------------
--- [3] 상호작용 관리 (재료 담기 & 플레이팅)
+-- [3] intertrecetion cyka
 -------------------------------------------------------------
 
--- A. 재료 디스펜서 로직 (재료 상자들)
--- Workspace 안의 'Ingredients' 폴더에 있는 모든 파트를 찾음
+-- A. ingredient sus (ingredient box)
+-- in Workspace find 'Ingredients' everything in folder
 for _, dispenser in pairs(workspace.Ingredients:GetChildren()) do
 	local prompt = dispenser:FindFirstChild("ProximityPrompt")
 	if prompt then
 		prompt.Triggered:Connect(function(player)
 			local character = player.Character
-			local tool = character and character:FindFirstChild("PortableGrill") -- 셰프 도구 이름 확인
+			local tool = character and character:FindFirstChild("PortableGrill") -- check the cooking tool 
 
 			if tool then
-				local ingredientName = dispenser.Name -- 파트 이름을 재료 이름으로 사용 (예: Steak)
+				local ingredientName = dispenser.Name -- use part's name
 				
-				-- 이미 있는 재료인지 확인
+				
 				if tool:GetAttribute("Has_"..ingredientName) then return end
 				
-				-- 재료 추가
+				-- add ingredient
 				tool:SetAttribute("Has_"..ingredientName, true)
 				print("재료 추가됨: " .. ingredientName)
 				
-				-- 만약 이 재료가 '굽기'를 시작하는 메인 재료라면 타이머 시작
+				-- start the timer if event triggered
 				for _, recipe in pairs(RECIPES) do
 					if recipe.Base == ingredientName then
 						startCooking(tool)
@@ -101,13 +101,13 @@ for _, dispenser in pairs(workspace.Ingredients:GetChildren()) do
 					end
 				end
 			else
-				warn("그릴(PortableGrill)을 먼저 손에 들어주세요!")
+				warn("i need your grill on your hands")
 			end
 		end)
 	end
 end
 
--- B. 플레이팅 스테이션 로직 (접시)
+-- B.plating
 local plateStation = workspace:WaitForChild("PlatingStation")
 local platePrompt = plateStation:FindFirstChild("ProximityPrompt")
 
@@ -117,18 +117,18 @@ if platePrompt then
 		local tool = character and character:FindFirstChild("PortableGrill")
 
 		if tool then
-			-- 1. 요리가 다 익었는지 확인
+			-- 1. check if the food is cooked
 			if tool:GetAttribute("Status") ~= "Cooked" then
-				warn("아직 요리가 완성되지 않았거나, 덜 익었습니다!")
+				warn("it is not cooked")
 				return
 			end
 
-			-- 2. 레시피 매칭 확인
+			-- 2. check the resipe
 			local foundRecipe = nil
 			
 			for _, recipe in pairs(RECIPES) do
 				local match = true
-				-- 필요한 모든 재료가 들어있는지 체크
+				-- check if they have required ingerdient
 				for _, ing in pairs(recipe.Ingredients) do
 					if not tool:GetAttribute("Has_"..ing) then
 						match = false
@@ -142,7 +142,7 @@ if platePrompt then
 				end
 			end
 
-			-- 3. 결과물 지급
+		-- 3. 
 			if foundRecipe then
 				print("🍽️ 완성된 요리: " .. foundRecipe)
 				
@@ -168,6 +168,7 @@ if platePrompt then
 	end)
 	--whats yo lookin fo
 end
+
 
 
 
