@@ -144,30 +144,31 @@ if platePrompt then
 
 		-- 3. 
 			if foundRecipe then
-				print("🍽️ 완성된 요리: " .. foundRecipe)
+				print("🍽️: " .. foundRecipe)
 				
-				-- 기존 그릴 삭제 (요리 끝)
+				-- fini
 				tool:Destroy()
 				
-				-- 완성된 음식 툴 지급
+				-- give fully cooked food to player 
 				local foodTool = FoodStorage:FindFirstChild(foundRecipe)
 				if foodTool then
 					local clone = foodTool:Clone()
 					clone.Parent = player.Backpack
 					player.Character.Humanoid:EquipTool(clone) -- 바로 손에 들려줌
 				else
-					warn("서버 저장소에 해당 음식 도구가 없습니다: " .. foundRecipe)
+					warn("add model to serverstorage " .. foundRecipe)
 				end
 			else
-				warn("재료 조합이 이상합니다. 맞는 레시피가 없습니다.")
+				warn("I need food that is in the recipe")
 			end
 			
 		else
-			warn("완성된 그릴을 들고 접시를 클릭하세요.")
+			warn("click the plate that is already finished ")
 		end
 	end)
 	--whats yo lookin fo
 end
+
 
 
 
