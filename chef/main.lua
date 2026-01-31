@@ -41,14 +41,6 @@ local function startCooking(tool)
 	local grillPart = tool:FindFirstChild("GrillPart") -- stove's heat plate(?)
 	local smoke = grillPart and grillPart:FindFirstChild("Smoke")
 
-	if grillPart then
-		-- colo change module
-		local tweenInfo = TweenInfo.new(30, Enum.EasingStyle.Linear)
-		local goal = {Color = Color3.fromRGB(255, 50, 0)} -- colo aftu 30 sec
-		local tween = TweenService:Create(grillPart, tweenInfo, goal)
-		tween:Play()
-	end
-
 	-- 2. 30sec after ->> enalbe particle effect
 	task.delay(30, function()
 		if tool and tool.Parent then -- if tool stil exist
@@ -64,7 +56,6 @@ local function startCooking(tool)
 			print("✅ ice..")
 			
 			-- turn off fire 
-			if grillPart then grillPart.Color = Color3.fromRGB(139, 69, 19) end -- nig u dun?
 			if smoke then smoke.Enabled = false end -- disable smoke
 		end
 	end)
@@ -168,6 +159,7 @@ if platePrompt then
 	end)
 	--whats yo lookin fo
 end
+
 
 
 
